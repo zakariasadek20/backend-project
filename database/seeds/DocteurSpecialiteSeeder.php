@@ -21,7 +21,7 @@ class DocteurSpecialiteSeeder extends Seeder
         }
 
         Docteur::all()->each(function ($docteur) use ($specialites) {
-            $take = random_int(0, $specialites->count());
+            $take = random_int(0,5);
             $specialitesId = Specialite::inRandomOrder()->take($take)->pluck('id');
             $docteur->specialites()->sync($specialitesId);
         });

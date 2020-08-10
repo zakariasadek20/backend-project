@@ -12,7 +12,7 @@ class ServiceSeeder extends Seeder
      */
     public function run()
     {
-        $NbrService=(int)$this->command->ask('How many of Service you want generate ? [default 30]',30);
+        // $NbrService=(int)$this->command->ask('How many of Service you want generate ? [default 30]',30);
 
         $docteurs=Docteur::all();
         if($docteurs->count()==0){
@@ -21,9 +21,15 @@ class ServiceSeeder extends Seeder
         }
         // $NbrService=$NbrService<$docteurs->count() ? $NbrService*$docteurs->count() : $NbrService;
 
-        factory(App\Service::class,$NbrService)->make()->each(function($service) use ($docteurs){
-            $service->docteur_id=$docteurs->random()->id;
-            $service->save();
+        // factory(App\Service::class,$NbrService)->make()->each(function($service) use ($docteurs){
+        //     $service->docteur_id=$docteurs->random()->id;
+        //     $service->save();
+        // });
+        $docteurs->each(function($docteur){
+            factory(App\Service::class,4)->make()->each(function($service) use ($docteur){
+                $service->docteur_id=$docteur->id;
+                $service->save();
+            });
         });
     }
 }

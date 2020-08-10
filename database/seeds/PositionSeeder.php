@@ -20,9 +20,15 @@ class PositionSeeder extends Seeder
             return;
         }
 
-        factory(App\Position::class,$docteurs->count())->make()->each(function($position) use ($docteurs){
-            $position->docteur_id=$docteurs->random()->id;
-            $position->save();
+        // factory(App\Position::class,$docteurs->count())->make()->each(function($position) use ($docteurs){
+        //     $position->docteur_id=$docteurs->random()->id;
+        //     $position->save();
+        // });
+        $docteurs->each(function($docteur){
+            factory(App\Position::class,1)->make()->each(function($position) use ($docteur){
+                $position->docteur_id=$docteur->id;
+                $position->save();
+            });
         });
     }
 }

@@ -20,9 +20,16 @@ class CabinetSeeder extends Seeder
             return;
         }
 
-        factory(App\Cabinet::class, $docteurs->count())->make()->each(function ($cabinet) use ($docteurs) {
-            $cabinet->docteur_id = $docteurs->random()->id;
-            $cabinet->save();
+        // $index=0;
+        // factory(App\Cabinet::class, $docteurs->count())->make()->each(function ($cabinet) use ($docteurs,$index) {
+        //     $cabinet->docteur_id = $docteurs->random()->id;
+        //     $cabinet->save();
+        // });
+        $docteurs->each(function($docteur){
+            factory(App\Cabinet::class, 1)->make()->each(function ($cabinet) use ($docteur) {
+                    $cabinet->docteur_id = $docteur->id;
+                    $cabinet->save();
+            });
         });
     }
 }
