@@ -17,6 +17,7 @@ class CreateCabinetsTable extends Migration
             $table->id();
             $table->string('nom');
             $table->string('tele_cab');
+            $table->string('address_cab');
             $table->foreignId('docteur_id')->constrained()
                     ->onDelete('cascade');
             $table->timestamps();
