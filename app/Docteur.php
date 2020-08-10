@@ -2,14 +2,15 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Docteur extends Model
 {
     //
 
-    protected $fillable =[
-        'nom','prenom','tele_Portable','sexe','a_propos','code_postal','prix_visite','specialite_id','ville_id'
+    protected $fillable = [
+        'nom', 'prenom', 'tele_Portable', 'sexe', 'a_propos', 'code_postal', 'prix_visite', 'specialite_id', 'ville_id'
     ];
 
     public function services()
@@ -38,12 +39,13 @@ class Docteur extends Model
         return $this->hasMany(JourDeTravail::class);
     }
 
-    public function cabinets()
+    public function cabinet()
     {
-        return $this->hasMany(Cabinet::class);
+        return $this->hasOne(Cabinet::class);
     }
 
-    public function edications(){
+    public function edications()
+    {
         return $this->hasMany(Edication::class);
     }
 
@@ -64,4 +66,12 @@ class Docteur extends Model
     {
         return $this->hasMany(Membership::class);
     }
+
+
+
+    //scopes
+    public function scopeOrderByName(Builder $builder){
+        $builder->orderBy('nom','ASC');
+    }
+
 }
