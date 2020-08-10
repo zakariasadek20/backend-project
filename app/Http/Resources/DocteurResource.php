@@ -16,14 +16,18 @@ class DocteurResource extends JsonResource
     {
         return [
             'docteur_id'=>$this->id,
-            'nom'=>$this->nom,
+            'docteur_nom'=>$this->nom,
             'prenom'=>$this->prenom,
             'tele_portable'=>$this->tele_Portable,
             'sexe'=>$this->sexe,
             'a_propos'=>$this->a_propos,
             'code_postal'=>$this->code_postal,
             'prix_visite'=>$this->prix_visite,
-            'ville'=>new VilleResource($this->whenLoaded('ville'))
+            'ville'=>new VilleResource($this->whenLoaded('ville')),
+            'position'=> new PositionResource($this->whenLoaded('position')),
+            'specialites'=>SpesialitesResource::collection($this->whenLoaded('specialites')),
+            'cabinets'=>CabinetsResource::collection($this->whenLoaded('cabinets')),
+            'services'=>ServicesResource::collection(($this->whenLoaded('services')))
         ];
     }
 }

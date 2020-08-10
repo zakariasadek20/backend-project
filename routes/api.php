@@ -19,4 +19,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('docteurs','DocteurController');
+// Route::apiResource('docteurs','DocteurController');
+Route::name('api.')->group(function () {
+    Route::apiResource('docteurs','DocteurController');
+    Route::post('docteurs/ville','DocteurController@SearchByVille')->name('docteur.search.ville');
+    Route::post('docteurs/distance','DocteurController@SearchByDistance')->name('docteur.search.distance');
+});
