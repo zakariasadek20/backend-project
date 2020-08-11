@@ -25,3 +25,6 @@ Route::name('api.')->group(function () {
     Route::post('docteurs/ville','DocteurController@SearchByVille')->name('docteur.search.ville');
     Route::post('docteurs/distance','DocteurController@SearchByDistance')->name('docteur.search.distance');
 });
+Route::name('api.')->group(function () {
+    Route::apiResource('specialites','SpecialiteController')->only('index');
+});
