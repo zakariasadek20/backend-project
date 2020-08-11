@@ -13,6 +13,8 @@ class Docteur extends Model
         'nom', 'prenom', 'tele_Portable', 'sexe', 'a_propos', 'code_postal', 'prix_visite', 'specialite_id', 'ville_id'
     ];
 
+    protected $with =  ['specialites', 'ville', 'position', 'cabinet'];
+    
     public function services()
     {
         return $this->hasMany(Service::class);
@@ -72,6 +74,22 @@ class Docteur extends Model
     //scopes
     public function scopeOrderByName(Builder $builder){
         $builder->orderBy('nom','ASC');
+    }
+
+
+
+    public function calcDistance($lat2, $long2)
+    {
+        $degrees =
+
+            (sin(deg2rad($this->position->latitude)) * sin(deg2rad($lat2))) +
+            (cos(deg2rad($this->position->latitude)) * cos(deg2rad($lat2)) *
+                cos(deg2rad($this->position->longitude - $long2)));
+
+        $degrees = acos($degrees);
+        $degrees = rad2deg($degrees);
+        $distance = $degrees * 111.13384;
+        return  round($distance, 2);
     }
 
 }
