@@ -13,8 +13,8 @@ class Docteur extends Model
         'nom', 'prenom', 'tele_Portable', 'sexe', 'a_propos', 'code_postal', 'prix_visite', 'specialite_id', 'ville_id'
     ];
 
-    protected $with =  ['specialites', 'ville', 'position', 'cabinet'];
-    
+    protected $with =  ['specialites', 'ville', 'position', 'cabinet','services'];
+
     public function services()
     {
         return $this->hasMany(Service::class);
