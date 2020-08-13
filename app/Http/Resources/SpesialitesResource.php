@@ -16,7 +16,8 @@ class SpesialitesResource extends JsonResource
     {
         return [
             'specialite_id'=>$this->id,
-            'nom'=>$this->nom
+            'nom'=>$this->nom,
+            'docteurs_count'=>$this->docteurs_count
         ];
     }
 }

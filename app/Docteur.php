@@ -72,11 +72,15 @@ class Docteur extends Model
 
 
     //scopes
-    public function scopeOrderByName(Builder $builder){
-        $builder->orderBy('nom','ASC');
+    // public function scopeOrderByName(Builder $builder){
+    //    return $builder->orderBy('nom','ASC');
+    // }
+
+    public function scopeGetByVille(Builder $builder,$ville_name){
+        return $builder->whereHas('ville',function($query)use ($ville_name){
+            $query->where('nom','like','%'.$ville_name.'%');
+        });
     }
-
-
 
     public function calcDistance($lat2, $long2)
     {
@@ -90,6 +94,13 @@ class Docteur extends Model
         $degrees = rad2deg($degrees);
         $distance = $degrees * 111.13384;
         return  round($distance, 2);
+    }
+
+
+    public static function booted(){
+        static::addGlobalScope('nom',function (Builder $builder){
+            $builder->orderBy('nom','ASC');
+        });
     }
 
 }

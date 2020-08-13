@@ -15,7 +15,12 @@ class SpecialiteController extends Controller
      */
     public function index()
     {
-        return SpesialitesResource::collection(Specialite::all());
+        return SpesialitesResource::collection(
+            Specialite::has('docteurs','>','0')
+                        ->withCount('docteurs')
+                        ->orderBy('docteurs_count','desc')
+                        ->get()
+        );
     }
 
     /**

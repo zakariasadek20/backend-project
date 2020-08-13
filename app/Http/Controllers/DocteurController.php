@@ -35,18 +35,18 @@ class DocteurController extends Controller
 
         $doctors = $doctors->filter(function ($doctor) use ($lat, $long, $zone) {
             return $doctor->calcDistance($lat, $long) < $zone;
-        });
+        })->values()->all();;
 
-        return $doctors;
+        return response()->json([
+            'data'=>$doctors
+        ]);
     }
 
     public function SearchByVille(SearchByVilleRequest $request)
     {
         $ville_name = $request->input('ville_name');
 
-        return DocteurResource::collection(Docteur::whereHas('ville', function ($query) use ($ville_name) {
-            $query->where('nom', 'like', '%' . $ville_name . '%');
-            })->get());
+        return DocteurResource::collection(Docteur::getByVille($ville_name)->get());
     }
 
     /**
