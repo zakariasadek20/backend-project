@@ -82,6 +82,12 @@ class Docteur extends Model
         });
     }
 
+    public function ScopeGetBySpecialite(Builder $builder,$idSpecialite){
+        return $builder->whereHas('specialites',function($query) use ($idSpecialite){
+            $query->where('specialite_id',$idSpecialite);
+        });
+    }
+
     public function calcDistance($lat2, $long2)
     {
         $degrees =

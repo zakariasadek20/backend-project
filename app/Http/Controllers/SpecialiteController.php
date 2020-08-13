@@ -22,6 +22,7 @@ class SpecialiteController extends Controller
                         ->get()
         );
     }
+    
 
     /**
      * Show the form for creating a new resource.

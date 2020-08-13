@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Docteur;
+use App\Http\Requests\SearchBySpecialiteRequest;
 use App\Http\Requests\SearchByVilleRequest;
 use App\Http\Requests\SearchDocteurDistanceRequest;
 use App\Http\Resources\DocteurResource;
@@ -49,6 +50,10 @@ class DocteurController extends Controller
         return DocteurResource::collection(Docteur::getByVille($ville_name)->get());
     }
 
+    public function SearchBySpecialite(SearchBySpecialiteRequest $request){
+        $specialite_id=$request->input('specialite_id');
+        return DocteurResource::collection(Docteur::getBySpecialite($specialite_id)->get());
+    }
     /**
      * Store a newly created resource in storage.
      *
