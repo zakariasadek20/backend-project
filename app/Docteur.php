@@ -13,7 +13,7 @@ class Docteur extends Model
         'nom', 'prenom', 'tele_Portable', 'sexe', 'a_propos', 'code_postal', 'prix_visite', 'specialite_id', 'ville_id'
     ];
 
-    protected $with =  ['specialites', 'ville', 'position', 'cabinet','services'];
+    protected $with =  ['specialites', 'ville', 'position', 'cabinet','services','edications','experiences','awards'];
 
     public function services()
     {

@@ -73,7 +73,7 @@ class DocteurController extends Controller
      */
     public function show(Docteur $docteur)
     {
-        //
+        return new DocteurResource($docteur);
     }
 
     /**
