@@ -87,6 +87,11 @@ class Docteur extends Model
             $query->whereIn('specialite_id',$idSpecialite);
         });
     }
+    
+    public function ScopeWithoutEdicationsExperiencesAwards(Builder $builder){
+        return $builder->without(['edications','experiences','awards']);
+    }
+
 
     public function calcDistance($lat2, $long2)
     {

@@ -30,9 +30,8 @@ class DocteurController extends Controller
         $lat = (float)$request->input('latitude');
         $long = (float)$request->input('longitude');
         $zone = (float)$request->input('zone');
-        // $perPage = (float) $request->input('per_page') ?? 5.0;
 
-        $doctors = DocteurResource::collection(Docteur::all());
+        $doctors = DocteurResource::collection(Docteur::withoutEdicationsExperiencesAwards()->get());
 
         $doctors = $doctors->filter(function ($doctor) use ($lat, $long, $zone) {
             return $doctor->calcDistance($lat, $long) < $zone;
@@ -47,12 +46,12 @@ class DocteurController extends Controller
     {
         $ville_name = $request->input('ville_name');
 
-        return DocteurResource::collection(Docteur::getByVille($ville_name)->get());
+        return DocteurResource::collection(Docteur::getByVille($ville_name)->withoutEdicationsExperiencesAwards()->get());
     }
 
     public function SearchBySpecialite(SearchBySpecialiteRequest $request){
         $specialite_id=$request->input('specialite_id');
-        return DocteurResource::collection(Docteur::getBySpecialite($specialite_id)->get());
+        return DocteurResource::collection(Docteur::getBySpecialite($specialite_id)->withoutEdicationsExperiencesAwards()->get());
     }
     /**
      * Store a newly created resource in storage.
