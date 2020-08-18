@@ -27,6 +27,7 @@ class DocteurResource extends JsonResource
             'position'=> new PositionResource($this->whenLoaded('position')),
             'specialites'=>SpesialitesResource::collection($this->whenLoaded('specialites')),
             'cabinets'=>CabinetsResource::collection($this->whenLoaded('cabinets')),
+            'jourDeTravail'=>JourDeTravailResource::collection($this->whenLoaded('jourDeTravails')),
             'services'=>ServicesResource::collection(($this->whenLoaded('services'))),
             'educations'=>EdicationResource::collection(($this->whenLoaded('edications'))),
             'experiences'=>ExperienceResource::collection(($this->whenLoaded('experiences'))),

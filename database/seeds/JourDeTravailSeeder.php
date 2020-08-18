@@ -24,8 +24,12 @@ class JourDeTravailSeeder extends Seeder
         //     $jourDeTravail->docteur_id = $docteurs->random()->id;
         //     $jourDeTravail->save();
         // });
-        $docteurs->each(function($docteur){
-            factory(App\JourDeTravail::class, 7)->make()->each(function ($jourDeTravail) use ($docteur) {
+        $docteurs->each(function ($docteur) {
+            $jour_index = [1, 2, 3, 4, 5, 6, 7];
+            $index = 0;
+            factory(App\JourDeTravail::class, 7)->make()->each(function ($jourDeTravail,$key) use ($docteur) {
+
+                $jourDeTravail->jour_index = $key+1;
                 $jourDeTravail->docteur_id = $docteur->id;
                 $jourDeTravail->save();
             });

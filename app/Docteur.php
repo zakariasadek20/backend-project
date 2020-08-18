@@ -13,8 +13,13 @@ class Docteur extends Model
         'nom', 'prenom', 'tele_Portable', 'sexe', 'a_propos', 'code_postal', 'prix_visite', 'specialite_id', 'ville_id'
     ];
 
-    protected $with =  ['specialites', 'ville', 'position', 'cabinet','services','edications','experiences','awards'];
+    protected $with =  [
+        'specialites', 'ville', 'position', 'cabinet','services','edications','experiences','awards','jourDeTravails'
+    ];
 
+
+
+    //relationShip
     public function services()
     {
         return $this->hasMany(Service::class);
@@ -72,9 +77,6 @@ class Docteur extends Model
 
 
     //scopes
-    // public function scopeOrderByName(Builder $builder){
-    //    return $builder->orderBy('nom','ASC');
-    // }
 
     public function scopeGetByVille(Builder $builder,$ville_name){
         return $builder->whereHas('ville',function($query)use ($ville_name){
@@ -87,11 +89,10 @@ class Docteur extends Model
             $query->whereIn('specialite_id',$idSpecialite);
         });
     }
-    
-    public function ScopeWithoutEdicationsExperiencesAwards(Builder $builder){
-        return $builder->without(['edications','experiences','awards']);
-    }
 
+    public function ScopeWithoutEdicationsExperiencesAwards(Builder $builder){
+        return $builder->without(['edications','experiences','awards','jourDeTravails']);
+    }
 
     public function calcDistance($lat2, $long2)
     {
@@ -108,6 +109,7 @@ class Docteur extends Model
     }
 
 
+    
     public static function booted(){
         static::addGlobalScope('nom',function (Builder $builder){
             $builder->orderBy('nom','ASC');
