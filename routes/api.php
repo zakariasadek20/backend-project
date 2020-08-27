@@ -27,6 +27,12 @@ Route::name('api.')->group(function () {
 });
 Route::name('api.')->group(function () {
     Route::apiResource('specialites','SpecialiteController')->only('index');
-    Route::post('specialites/docteurs','DocteurController@SearchBySpecialite')->name('Specialite.docteurs');
+    Route::post('specialites/docteurs','DocteurController@SearchBySpecialite')->name('specialite.docteurs');
+
+});
+Route::name('api.')->group(function () {
+    Route::post('guestPatient','PatientController@storeGuestPatient')->name('guestPatient.storeGuestPatient');
+    
+    Route::post('docteurs/rendezVous/guestPatient','RendezVousController@storeRDVGuestPatient')->name('docteur.guestPatient.storeRDVGuestPatient');
 
 });

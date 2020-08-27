@@ -14,7 +14,7 @@ class Docteur extends Model
     ];
 
     protected $with =  [
-        'specialites', 'ville', 'position', 'cabinet','services','edications','experiences','awards','jourDeTravails'
+        'specialites', 'ville', 'position', 'cabinet', 'services', 'edications', 'experiences', 'awards', 'jourDeTravails'
     ];
 
 
@@ -73,25 +73,30 @@ class Docteur extends Model
     {
         return $this->hasMany(Membership::class);
     }
-
+    public function rendez_vouses(){
+        return $this->hasMany(RendezVous::class);
+    }
 
 
     //scopes
 
-    public function scopeGetByVille(Builder $builder,$ville_name){
-        return $builder->whereHas('ville',function($query)use ($ville_name){
-            $query->where('nom','like','%'.$ville_name.'%');
+    public function scopeGetByVille(Builder $builder, $ville_name)
+    {
+        return $builder->whereHas('ville', function ($query) use ($ville_name) {
+            $query->where('nom', 'like', '%' . $ville_name . '%');
         });
     }
 
-    public function ScopeGetBySpecialite(Builder $builder,$idSpecialite){
-        return $builder->whereHas('specialites',function($query) use ($idSpecialite){
-            $query->whereIn('specialite_id',$idSpecialite);
+    public function ScopeGetBySpecialite(Builder $builder, $idSpecialite)
+    {
+        return $builder->whereHas('specialites', function ($query) use ($idSpecialite) {
+            $query->whereIn('specialite_id', $idSpecialite);
         });
     }
 
-    public function ScopeWithoutEdicationsExperiencesAwards(Builder $builder){
-        return $builder->without(['edications','experiences','awards','jourDeTravails']);
+    public function ScopeWithoutEdicationsExperiencesAwards(Builder $builder)
+    {
+        return $builder->without(['edications', 'experiences', 'awards', 'jourDeTravails']);
     }
 
     public function calcDistance($lat2, $long2)
@@ -109,11 +114,11 @@ class Docteur extends Model
     }
 
 
-    
-    public static function booted(){
-        static::addGlobalScope('nom',function (Builder $builder){
-            $builder->orderBy('nom','ASC');
+
+    public static function booted()
+    {
+        static::addGlobalScope('nom', function (Builder $builder) {
+            $builder->orderBy('nom', 'ASC');
         });
     }
-
 }
