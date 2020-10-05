@@ -24,6 +24,9 @@ Route::name('api.')->group(function () {
     Route::apiResource('docteurs','DocteurController');
     Route::post('docteurs/ville','DocteurController@SearchByVille')->name('docteur.search.ville');
     Route::post('docteurs/distance','DocteurController@SearchByDistance')->name('docteur.search.distance');
+
+    Route::apiResource('docteurs.timings','JourDeTravailController');
+
 });
 Route::name('api.')->group(function () {
     Route::apiResource('specialites','SpecialiteController')->only('index');
@@ -32,7 +35,9 @@ Route::name('api.')->group(function () {
 });
 Route::name('api.')->group(function () {
     Route::post('guestPatient','PatientController@storeGuestPatient')->name('guestPatient.storeGuestPatient');
-    
+
+    Route::post('rendezvous','RendezVousController@checkRDV')->name('guestPatient.checkRdv');
+
     Route::post('docteurs/rendezVous/guestPatient','RendezVousController@storeRDVGuestPatient')->name('docteur.guestPatient.storeRDVGuestPatient');
 
 });

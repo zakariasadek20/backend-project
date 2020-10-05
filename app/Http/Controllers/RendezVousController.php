@@ -62,13 +62,20 @@ class RendezVousController extends Controller
             ]);
         }
 
-        $rendezVous = RendezVous::create([
-            'datetime' => $request->input('datetime'),
-            'etat' => 'enAttent',
-            'docteur_id' => $request->input('docteur_id'),
-            'patient_id' => $patient->id
-        ]);
-        
+        $rendezVous = RendezVous::where([
+            ['patient_id','=',$patient->id],
+            ['etat','=', 'enAttent']
+        ])->first();
+
+        if(!$rendezVous){
+
+            $rendezVous = RendezVous::create([
+                'datetime' => $request->input('datetime'),
+                'etat' => 'enAttent',
+                'docteur_id' => $request->input('docteur_id'),
+                'patient_id' => $patient->id
+            ]);
+        }
         return $rendezVous;
     }
     /**
@@ -79,7 +86,18 @@ class RendezVousController extends Controller
      */
     public function show(RendezVous $rendezVous)
     {
-        //
+        
+    }
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\RendezVous  $rendezVous
+     * @return \Illuminate\Http\Response
+     */
+    public function checkRDV(Request $request)
+    {
+        $rdv=RendezVous::withCount('patient')->where("Datetime",$request->datetime)->get()->count();
+        return $rdv;
     }
 
     /**

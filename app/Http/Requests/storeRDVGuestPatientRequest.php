@@ -29,7 +29,7 @@ class storeRDVGuestPatientRequest extends FormRequest
             'email'=>'required|string|email|max:255',
             'telephone'=>'required|string',
             'docteur_id'=>'required',
-            'datetime'=>'required|date_format:Y-m-d H:i'
+            'datetime'=>'required|date_format:Y-m-d H:i:s'
         ];
     }
 }
