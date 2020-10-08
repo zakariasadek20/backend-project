@@ -16,7 +16,7 @@ class JourDeTravailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public static function index(Docteur $docteur)
+    public function index(Docteur $docteur)
     {
         $jourDeTravail=JourDeTravailResource::collection($docteur->jourDeTravails);
         $timing=collect();
@@ -28,7 +28,7 @@ class JourDeTravailController extends Controller
 
             $heureDeb =Carbon::createFromFormat('Y m d H:i:s',$currentDateString->setTimeFromTimeString($jour->heure_deb)->format('Y m d H:i:s'));
             $heurfin  =Carbon::createFromFormat('Y m d H:i:s',$currentDateString->setTimeFromTimeString($jour->heure_fin)->format('Y m d H:i:s'));
-            
+
             $currentH = Carbon::createFromFormat('Y m d H:i:s',$heureDeb->format('Y m d H:i:s'));
             $heures = collect();
 

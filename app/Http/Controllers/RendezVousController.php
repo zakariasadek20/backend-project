@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Docteur;
 use App\Http\Requests\storeRDVGuestPatientRequest;
+use App\Http\Resources\RendezVousResources;
 use App\Patient;
 use App\RendezVous;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Http;
+use SebastianBergmann\CodeCoverage\Report\Html\Renderer;
 
 class RendezVousController extends Controller
 {
@@ -17,9 +19,15 @@ class RendezVousController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($docteur)
     {
-        //
+        $appointments=RendezVous::with('patient')->where('docteur_id',$docteur)->latest('datetime')->get();
+        $appointments->each(function($appointment){
+            $appointment->patient->loadCount('rendez_vouses');
+            $appointment->patient->type=$appointment->patient->rendez_vouses_count>1? 'Ancien patient':'Nouveau patient' ;
+        });
+        // return RendezVousResources::collection($appointments);
+        return $appointments;
     }
 
     /**

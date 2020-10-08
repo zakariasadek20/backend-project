@@ -10,6 +10,9 @@ class RendezVous extends Model
     protected $fillable=[
         'datetime','etat','docteur_id','patient_id'
     ];
+    protected $with =  [
+        'patient'
+    ];
     public function patient(){
         return $this->belongsTo(Patient::class);
     }
