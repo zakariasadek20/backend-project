@@ -26,8 +26,7 @@ class RendezVousController extends Controller
             $appointment->patient->loadCount('rendez_vouses');
             $appointment->patient->type=$appointment->patient->rendez_vouses_count>1? 'Ancien patient':'Nouveau patient' ;
         });
-        // return RendezVousResources::collection($appointments);
-        return $appointments;
+        return RendezVousResources::collection($appointments);
     }
 
     /**
@@ -94,7 +93,7 @@ class RendezVousController extends Controller
      */
     public function show(RendezVous $rendezVous)
     {
-        
+
     }
     /**
      * Display the specified resource.
