@@ -36,10 +36,12 @@ Route::name('api.')->group(function () {
 Route::name('api.')->group(function () {
     Route::post('guestPatient','PatientController@storeGuestPatient')->name('guestPatient.storeGuestPatient');
     
+    Route::apiResource('docteurs.rendezvous','RendezVousController');
+    
     Route::post('rendezvous','RendezVousController@checkRDV')->name('guestPatient.checkRdv');
     
     Route::post('docteurs/rendezVous/guestPatient','RendezVousController@storeRDVGuestPatient')->name('docteur.guestPatient.storeRDVGuestPatient');
+    Route::put('docteurs/{docteur}/rendezvous/{rendezVous}/etat','RendezVousController@updateRendezVousEtat')->name('docteur.rendezvous.updateRendezVousEtat');
     
-    Route::apiResource('docteurs.rendezvous','RendezVousController');
 
 });

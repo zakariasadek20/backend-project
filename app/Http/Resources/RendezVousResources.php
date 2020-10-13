@@ -15,10 +15,10 @@ class RendezVousResources extends JsonResource
     public function toArray($request)
     {
         return [
+            'id'=>$this->id,
             'datetime'=>$this->datetime,
             'status'=>$this->etat,
             'patient'=>new PatientResource($this->whenLoaded('patient')),
-
         ];
     }
 }

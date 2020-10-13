@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Docteur;
 use App\Http\Requests\storeRDVGuestPatientRequest;
+use App\Http\Requests\UpdateRendezVousStatusRequest;
 use App\Http\Resources\RendezVousResources;
 use App\Patient;
 use App\RendezVous;
@@ -108,15 +109,19 @@ class RendezVousController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Update the specified resource in storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\RendezVous  $rendezVous
      * @return \Illuminate\Http\Response
      */
-    public function edit(RendezVous $rendezVous)
+    public function updateRendezVousEtat(UpdateRendezVousStatusRequest $request,$docteur, RendezVous $rendezVous)
     {
-        //
+        $rendezVous->etat=$request->input('etat');
+        $rendezVous->save();
+        return new RendezVousResources($rendezVous);
     }
+
 
     /**
      * Update the specified resource in storage.
