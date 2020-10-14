@@ -20,6 +20,9 @@ class PatientResource extends JsonResource
             'DateOfBirth'=>$this->date_naissance,
             'email'=>$this->email,
             'tele'=>$this->telephone,
+            'groupe_sanguin'=>new GroupeSanguinResource($this->whenLoaded('groupe_sanguin')),
+            'ville'=>new VilleResource($this->whenLoaded('ville')),
+            'pays'=>new PaysResource($this->whenLoaded('pays')),
             'type'=>$this->type,
             'rendez_vouses_count'=>$this->rendez_vouses_count
         ];
