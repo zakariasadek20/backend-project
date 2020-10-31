@@ -3,6 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class JourDeTravail extends Model
@@ -36,4 +37,11 @@ class JourDeTravail extends Model
             return $currentDate->format('Y m d H:i:s');
         }
     }
+
+    public static function booted(){
+        static::addGlobalScope('jour_index',function(Builder $builder){
+            $builder->orderBy('jour_index','ASC');
+        });
+    }
+
 }

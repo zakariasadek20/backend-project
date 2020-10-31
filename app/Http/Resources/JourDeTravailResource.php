@@ -15,9 +15,10 @@ class JourDeTravailResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'jour_id'=>$this->id,
             'jour_index'=>$this->jour_index,
             'heure_deb'=>$this->heure_deb,
-            'heurs_fin'=>$this->heure_fin
+            'heure_fin'=>$this->heure_fin
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Docteur;
+use App\Http\Requests\StoreJourDeTravailRequest;
 use App\Http\Resources\JourDeTravailResource;
 use App\JourDeTravail;
 use App\RendezVous;
@@ -58,9 +59,24 @@ class JourDeTravailController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreJourDeTravailRequest $request,Docteur $docteur)
     {
-        //
+        $jour=null;
+        if ($docteur->jourDeTravails->count()<=7){
+            $jour= $docteur->jourDeTravails()->where('jour_index', '=', $request->input('jour_index'))->first();
+            if ($jour) {
+                $jour->heure_deb=$request->input('heure_deb');
+                $jour->heure_fin=$request->input('heure_fin');
+                $jour->save();
+            }else{
+                $jour=$docteur->jourDeTravails()->create([
+                    'jour_index'=>$request->input('jour_index'),
+                    'heure_deb'=>$request->input('heure_deb'),
+                    'heure_fin'=>$request->input('heure_fin')
+                ]);
+            }
+        };
+        return new JourDeTravailResource($jour);
     }
 
     /**
@@ -94,8 +110,9 @@ class JourDeTravailController extends Controller
      * @param  \App\JourDeTravail  $jourDeTravail
      * @return \Illuminate\Http\Response
      */
-    public function destroy(JourDeTravail $jourDeTravail)
+    public function destroy(Docteur $docteur,JourDeTravail $jourDeTravail)
     {
-        //
+        $jourDeTravail->delete();
+        return response()->noContent();
     }
 }

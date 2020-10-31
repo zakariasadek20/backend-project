@@ -25,7 +25,7 @@ Route::name('api.')->group(function () {
     Route::post('docteurs/ville','DocteurController@SearchByVille')->name('docteur.search.ville');
     Route::post('docteurs/distance','DocteurController@SearchByDistance')->name('docteur.search.distance');
 
-    Route::apiResource('docteurs.timings','JourDeTravailController');
+    Route::apiResource('docteurs.jourDeTravails','JourDeTravailController');
 
 });
 Route::name('api.')->group(function () {
